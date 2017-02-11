@@ -28,4 +28,11 @@
 		</div>
 	</div>
 
+	<div>
+		
+		{{ $posts->links() }}
+	</div>
+
+	<hr>
+
 @endsection
