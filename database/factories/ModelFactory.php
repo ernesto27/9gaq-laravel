@@ -37,7 +37,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 
-
 $factory->define(App\Post::class, function (Faker\Generator $faker) {
 
     return [
@@ -46,3 +45,15 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
     	'user_id' => '1',
     ];
 });
+
+
+$factory->define(App\Comment::class, function (Faker\Generator $faker) {
+    return [
+    	'body' => $faker->text,
+        'active' => 1,
+        'post_id' => 1,
+        'user_id' => 1
+    ];
+});
+
+
