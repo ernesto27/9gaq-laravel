@@ -9,13 +9,13 @@
 				  <div class="media-content">
 				    <div class="content">
 				      <p>
-				        <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+				        <strong>{{ $post->user->username }}</strong> <small>{{ $post->created_at->diffForHumans() }}</small>
 				        <br>
 				        <figure class="image is-480x480">
 						  <img src="{{ $post->image_url }}">
 						</figure>
 				      </p>
-				      <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
+				      <small><a>Like {{ $post->votes }}</a> · <a>Reply</a></small>
 				    </div>
 				    
 				  </div>
