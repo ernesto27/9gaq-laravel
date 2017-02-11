@@ -12,7 +12,5 @@
 */
 
 Route::resource('posts', 'PostController');
+Route::resource('users', 'UserController');
 
-Route::get('/registro', function () {
-    return view('usuarios.registro');
-});

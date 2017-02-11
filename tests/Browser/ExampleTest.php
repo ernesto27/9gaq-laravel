@@ -38,11 +38,31 @@ class ExampleTest extends DuskTestCase
      *
      * @return void
      */
-    public function testRegistroExample()
+    public function testSuccessRegistro()
     {
+        
         $this->browse(function (Browser $browser) {
-            $browser->visit('/registro')
-                    ->assertSee('REGISTRO');
+            $faker = \Faker\Factory::create();
+            $browser->visit('/users/create')
+                    ->type('username', $faker->username)
+                    ->type('email', $faker->email)
+                    ->type('password', bcrypt('1234'))
+                    ->click('.btn-registro')
+                    ->assertPathIs('/posts');
         });
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

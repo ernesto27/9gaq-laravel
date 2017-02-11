@@ -1,7 +1,16 @@
 @extends('layout')
 
 @section('content')
+
+	@if(session('message'))
+		<div class="notification is-primary">
+			 <button class="delete"></button>
+			  {{ session('message') }}
+		</div>
+	@endif
+
 	<div class="columns">
+
 		<div class="column is-three-quarters">
 
 			@foreach($posts as $post)
