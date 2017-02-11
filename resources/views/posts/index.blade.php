@@ -12,7 +12,9 @@
 				        <strong>{{ $post->user->username }}</strong> <small>{{ $post->created_at->diffForHumans() }}</small>
 				        <br>
 				        <figure class="image is-480x480">
-						  <img src="{{ $post->image_url }}">
+				          <a href="/posts/{{ $post->id }}">
+						  	<img src="{{ $post->image_url }}">
+						  </a>
 						</figure>
 				      </p>
 				      <small><a>Like {{ $post->votes }}</a> · <a>Reply</a></small>

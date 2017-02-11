@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Comment;
 
 class PostController extends Controller
 {
@@ -47,7 +48,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return view('posts.show');
+        $post = Post::with('user')->where('id', $id)->first();
+        $comments = Comment::with('user')->where('post_id', $id)->get();
+        return view('posts.show', compact('post', 'comments'));
     }
 
     /**
