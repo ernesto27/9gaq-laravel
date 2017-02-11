@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('posts.index');
 });
+
+Route::get('/detalle', function () {
+    return view('posts.single');
+});
+
+Route::get('/registro', function () {
+    return view('usuarios.registro');
+});
