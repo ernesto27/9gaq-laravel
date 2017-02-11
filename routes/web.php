@@ -11,13 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('posts.index');
-});
-
-Route::get('/detalle', function () {
-    return view('posts.single');
-});
+Route::resource('posts', 'PostController');
 
 Route::get('/registro', function () {
     return view('usuarios.registro');

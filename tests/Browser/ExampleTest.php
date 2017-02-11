@@ -16,7 +16,7 @@ class ExampleTest extends DuskTestCase
     public function testHomeExample()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/')
+            $browser->visit('/posts')
                     ->assertSee('Home');
         });
     }
@@ -29,7 +29,7 @@ class ExampleTest extends DuskTestCase
     public function testDetalleExample()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/detalle')
+            $browser->visit('/posts/1')
                     ->assertSee('Home');
         });
     }

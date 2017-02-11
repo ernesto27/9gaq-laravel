@@ -18,8 +18,8 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('image_url')->nullable();
             $table->string('gif_url')->nullable();
-            $table->integer('votes');
-            $table->integer('active');
+            $table->integer('votes')->unsigned()->default(0);
+            $table->integer('active')->unsigned()->default(1);
             $table->integer('user_id')->unsigned();
             $table->timestamps();
 
