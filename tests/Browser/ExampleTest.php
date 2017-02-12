@@ -91,6 +91,35 @@ class ExampleTest extends DuskTestCase
                     ->assertSee('Success upload');
         });
     }
+
+
+    public function testErrorUpload()
+    {
+
+    }
+
+
+    public function testSuccessComment()
+    {
+        $this->browse(function(Browser $browser){
+            $browser->loginAs(User::find(1))
+                    ->visit('/posts/1')
+                    ->type('comment', 'this is a test comment')
+                    ->click('.btn-comment')
+                    ->assertSee('Comment added!');
+        });
+    }
+
+    public function testErrorComment()
+    {
+        $this->browse(function(Browser $browser){
+            $browser->loginAs(User::find(1))
+                    ->visit('/posts/1')
+                    ->click('.btn-comment')
+                    ->assertSee('Error');
+        });
+    }
+
 }
 
 

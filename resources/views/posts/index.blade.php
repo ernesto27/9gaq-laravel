@@ -22,7 +22,7 @@
 				        <br>
 				        <figure class="image is-480x480">
 				          <a href="/posts/{{ $post->id }}">
-						  	<img src="{{ $post->image_url }}">
+						  	<img src="/images/app/{{ $post->image_url }}">
 						  </a>
 						</figure>
 				      </p>
