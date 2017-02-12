@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
+use Auth;
+use Session;
 
 class PostController extends Controller
 {
@@ -15,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->paginate(10);
+        $posts = Post::with('user')->orderBy('id', 'desc')->paginate(10);
         return view('posts.index', compact('posts'));
     }
 
@@ -26,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -37,7 +39,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate request data
+        $this->validate($request, Post::$validationRules);
+
+        $store = $request->file->store('public/images');
+        if($store){
+            $post = Post::create([
+                'title' => $request->input('title'),
+                'image_url' => $store,
+                'user_id' => Auth::id()
+            ]);
+            Session::flash('success', true);
+            return redirect("posts/{$post->id}");
+        }
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Tests\Browser;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\User;
 
 class ExampleTest extends DuskTestCase
 {
@@ -73,8 +74,21 @@ class ExampleTest extends DuskTestCase
                     ->type('email', 'ernesto@gmail.com')
                     ->type('password','not-valid')
                     ->click('.btn-login')
-                    //->assertPathIs('/users/login');
                     ->assertSee('Email o password incorrecto');
+        });
+    }
+
+
+    public function testSuccessUpload()
+    {
+        
+        $this->browse(function (Browser $browser) {
+            $browser->loginAs(User::find(1))
+                    ->visit('/posts/create')
+                    ->type('title', "some test title")
+                    ->attach('file', __DIR__.'/images/image.jpg')
+                    ->click('.btn-upload')
+                    ->assertSee('Success upload');
         });
     }
 }

@@ -1,8 +1,16 @@
 @extends('layout')
 
 @section('content')
+	@if(session('success'))
+		<div class="notification is-success">
+	        Success upload
+	    </div>
+	@endif
+
 	<div class="columns">
-			<div class="column is-three-quarters">
+		
+
+		<div class="column is-three-quarters">
 	        <article class="media">
 			  <div class="media-content">
 			    <div class="content">
@@ -10,7 +18,7 @@
 			        <strong>{{ $post->user->username }}</strong> <small>{{ $post->created_at->diffForHumans() }}</small>
 			        <br>
 			        <figure class="image is-480x480">
-					  <img src="{{ $post->image_url }}">
+					  <img src="/images/app/{{ $post->image_url }}">
 					</figure>
 			      </p>
 			      <small><a>Like {{ $post->votes }}</a> · <a>Reply</a> · 3 hrs</small>
