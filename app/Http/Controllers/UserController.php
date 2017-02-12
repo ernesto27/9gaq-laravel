@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Session;
+use Auth;
 
 class UserController extends Controller
 {
@@ -108,6 +109,7 @@ class UserController extends Controller
         $user = User::where('email', $request->input('email'))->first();
         if($user){
             if(password_verify($request->input('password'), $user->password)){
+                Auth::login($user, true);
                 return redirect('posts');
             }
         }
@@ -116,6 +118,10 @@ class UserController extends Controller
         return redirect('users/login'); 
     }
 
-
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('posts');
+    }
 
 }
