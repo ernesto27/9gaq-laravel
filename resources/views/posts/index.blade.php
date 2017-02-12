@@ -26,7 +26,12 @@
 						  </a>
 						</figure>
 				      </p>
-				      <small><a>Like {{ $post->votes }}</a> · <a>Reply</a></small>
+				      <form action="/post/vote" method="post">
+				      	<input type="hidden" name="post_id" value="{{ $post->id }}">
+				      	<a>Like {{ $post->votes }}</a> 
+				      	<input type="submit" name="send">
+				      </form>
+				      <a>Reply</a>
 				    </div>
 				    
 				  </div>

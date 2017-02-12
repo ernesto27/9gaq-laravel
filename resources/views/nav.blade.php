@@ -21,10 +21,10 @@
           </figure>
           Upload
         </a>
-        <a class="nav-item is-tab" href="users/logout">Log out</a>
+        <a class="nav-item is-tab" href="/users/logout">Log out</a>
       @else
-        <a class="nav-item is-tab" href="users/register">Register</a>
-        <a class="nav-item is-tab" href="users/login">Login</a>
+        <a class="nav-item is-tab" href="/users/register">Register</a>
+        <a class="nav-item is-tab" href="/users/login">Login</a>
         
       @endif
     </div>

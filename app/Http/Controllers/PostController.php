@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
+use App\PostVote;
 use Auth;
 use Session;
 
@@ -63,7 +64,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::with('user')->where('id', $id)->first();
-        $comments = Comment::with('user')->where('post_id', $id)->get();
+        $comments = Comment::with('user')->where('post_id', $id)->orderBy('id', 'desc')->get();
         return view('posts.show', compact('post', 'comments'));
     }
 
@@ -100,4 +101,41 @@ class PostController extends Controller
     {
         //
     }
+
+
+    public function vote(Request $request)
+    {
+        // Verificar si existe una entrada en tabla votos - posts
+        $postVote = PostVote::where('user_id', Auth::id())->where('post_id', $request->input('post_id'))->first();
+        $post = Post::find($request->input('post_id'));
+        // Si no existe agregagmos entrada y sumamos un punto al post
+
+        if(!$postVote){
+            PostVote::create([
+                'user_id' => Auth::id(),
+                'post_id' => $request->input('post_id')
+            ]);
+            $post->votes = $post->votes + 1;
+            $post->save();
+        }else{
+            // Si existe la eliminaos y bajamos un punto al post
+            $postVote->delete();
+            $post->votes = $post->votes - 1;
+            $post->save();
+        }
+        return back();
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
