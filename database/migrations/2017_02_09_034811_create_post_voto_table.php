@@ -13,7 +13,7 @@ class CreatePostVotoTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_voto', function (Blueprint $table) {
+        Schema::create('post_vote', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('post_id')->unsigned();
@@ -32,6 +32,6 @@ class CreatePostVotoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_voto');
+        Schema::dropIfExists('post_vote');
     }
 }

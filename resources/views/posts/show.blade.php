@@ -35,7 +35,6 @@
 
 					@if (count($errors) > 0)
 					    <div class="notification is-danger">
-
 					        <ul>
 					        	<li>Error</li>
 					            @foreach ($errors->all() as $error)
@@ -51,18 +50,20 @@
 					    </div>
 					@endif
 
-					<form action="/comments" method="post">
-						{{ csrf_field() }}
-						<input type="hidden" name="post_id" value="{{ $post->id }}">
-						<label class="label">Tu comentario</label>
-						<p class="control">
-						  <textarea class="textarea" placeholder="Textarea" name="comment"></textarea>
-						</p>
+					@if(Auth::check())
+						<form action="/comments" method="post">
+							{{ csrf_field() }}
+							<input type="hidden" name="post_id" value="{{ $post->id }}">
+							<label class="label">Tu comentario</label>
+							<p class="control">
+							  <textarea class="textarea" placeholder="Textarea" name="comment"></textarea>
+							</p>
 
-						<p class="control">
-							<button class="button is-primary btn-comment">Enviar</button>
-						</p>
-					</form>
+							<p class="control">
+								<button class="button is-primary btn-comment">Enviar</button>
+							</p>
+						</form>
+					@endif
 				</div>
 
 				<hr>

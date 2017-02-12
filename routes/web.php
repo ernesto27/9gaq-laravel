@@ -1,5 +1,6 @@
 <?php
 
+Route::post('post/vote', 'PostController@vote');
 Route::resource('posts', 'PostController');
 
 Route::get('users/login', 'UserController@loginShow');
