@@ -12,5 +12,9 @@
 */
 
 Route::resource('posts', 'PostController');
+
+
+Route::get('users/login', 'UserController@loginShow');
+Route::post('users/login', 'UserController@loginCreate');
 Route::resource('users', 'UserController');
 

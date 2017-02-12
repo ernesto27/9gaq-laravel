@@ -97,4 +97,25 @@ class UserController extends Controller
     {
         //
     }
+
+    public function loginShow()
+    {
+        return view('users.login');
+    }
+
+    public function loginCreate(Request $request)
+    {
+        $user = User::where('email', $request->input('email'))->first();
+        if($user){
+            if(password_verify($request->input('password'), $user->password)){
+                return redirect('posts');
+            }
+        }
+
+        Session::flash('errorLogin', true);
+        return redirect('users/login'); 
+    }
+
+
+
 }

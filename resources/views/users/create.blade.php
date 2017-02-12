@@ -2,8 +2,7 @@
 
 @section('content')
 	<div class="columns">
-		
-
+	
 		<div class="column is-three-quarters">
 	  		<p>REGISTRO</p>
 	  		@if (count($errors) > 0)

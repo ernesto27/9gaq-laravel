@@ -34,10 +34,7 @@ class ExampleTest extends DuskTestCase
         });
     }
 
-    /**
-     *
-     * @return void
-     */
+
     public function testSuccessRegistro()
     {
         
@@ -49,6 +46,35 @@ class ExampleTest extends DuskTestCase
                     ->type('password', bcrypt('1234'))
                     ->click('.btn-registro')
                     ->assertPathIs('/posts');
+        });
+    }
+
+
+
+    public function testSuccessLogin()
+    {
+        
+        $this->browse(function (Browser $browser) {
+           
+            $browser->visit('/users/login')
+                    ->type('email', 'ernesto@gmail.com')
+                    ->type('password','secret')
+                    ->click('.btn-login')
+                    ->assertPathIs('/posts');
+        });
+    }
+
+    public function testErrorLogin()
+    {
+        
+        $this->browse(function (Browser $browser) {
+           
+            $browser->visit('/users/login')
+                    ->type('email', 'ernesto@gmail.com')
+                    ->type('password','not-valid')
+                    ->click('.btn-login')
+                    //->assertPathIs('/users/login');
+                    ->assertSee('Email o password incorrecto');
         });
     }
 }
