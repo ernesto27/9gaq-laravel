@@ -2,9 +2,11 @@
 <nav class="nav has-shadow">
   <div class="container">
     <div class="nav-left">
-      <a class="nav-item">
+      <a class="nav-item" href="/posts">
         <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
       </a>
+      <a href="posts?order=latest" class="nav-item is-tab is-hidden-mobile is-active">Lastest</a>
+      <a href="posts?order=votes" class="nav-item is-tab is-hidden-mobile">More votes</a>
 
     </div>
     <span class="nav-toggle">
@@ -15,7 +17,7 @@
     <div class="nav-right nav-menu">
       
       @if(Auth::check())
-        <a class="nav-item is-tab">
+        <a class="nav-item is-tab" href="/posts/create">
           <figure class="image is-16x16" style="margin-right: 8px;">
             <img src="http://bulma.io/images/jgthms.png">
           </figure>

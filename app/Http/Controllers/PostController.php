@@ -11,15 +11,27 @@ use Session;
 
 class PostController extends Controller
 {
+
+    private $count;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('user')->orderBy('id', 'desc')->paginate(10);
-        return view('posts.index', compact('posts'));
+        $order = $request->get('order');
+
+        $posts = Post::with('user');
+        if($order == 'latest' || $order == null){
+            $posts->byId();
+        }elseif($order == 'votes'){
+            $posts->byVotes();
+        }
+        
+        $posts = $posts->paginate($this->count);
+        return view('posts.index', compact('posts', 'order'));
     }
 
     /**

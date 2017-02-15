@@ -41,8 +41,9 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
 
     return [
     	'title' => $faker->sentence,
-    	'image_url' => $faker->imageUrl(800, 400, 'cats', true, 'Faker'),
+    	'image_url' => 'public/images/image.jpeg',
     	'user_id' => '1',
+        'votes' => $faker->randomNumber(4)
     ];
 });
 
