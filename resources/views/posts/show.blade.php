@@ -36,9 +36,10 @@
 					@endif
 
 					@if(Auth::check())
-						<form action="/comments" method="post">
+						<form action="/comments" method="post" class="form-comment">
 							{{ csrf_field() }}
 							<input type="hidden" name="post_id" value="{{ $post->id }}">
+							<input type="hidden" name="parent_id" value="0">
 							<label class="label">Tu comentario</label>
 							<p class="control">
 							  <textarea class="textarea" placeholder="Textarea" name="comment"></textarea>
@@ -54,35 +55,13 @@
 				<hr>
 
 				@foreach($comments as $comment)
-					<article class="media">
-					  <figure class="media-left">
-					    <p class="image is-64x64">
-					      <img src="http://bulma.io/images/placeholders/128x128.png">
-					    </p>
-					  </figure>
-					  <div class="media-content">
-					    <div class="content">
-					      <p>
-					        <strong>{{ $comment->user->username }}</strong> <small>{{ $comment->created_at->diffForHumans() }}</small>
-					        <br>
-					        {{ $comment->body }}
-					      </p>
-					    </div>
-					    <nav class="level">
-					      <div class="level-left">
-					        <a class="level-item">
-					          <span class="icon is-small"><i class="fa fa-reply"></i></span>
-					        </a>
-					        <a class="level-item">
-					          <span class="icon is-small"><i class="fa fa-retweet"></i></span>
-					        </a>
-					        <a class="level-item">
-					          <span class="icon is-small"><i class="fa fa-heart"></i></span>
-					        </a>
-					      </div>
-					    </nav>
-					  </div>
-					</article>
+					@if($comment->parent_id == 0)
+						@include('elements.comment_item', ['comment' => $comment, 'className' => ''])
+						
+						@foreach($comment->children as $commentChildren)
+							@include('elements.comment_item', ['comment' => $commentChildren, 'className' => 'comment-child'])
+						@endforeach
+					@endif
 				@endforeach
 
 				@unless(empty($comments))

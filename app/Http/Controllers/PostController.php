@@ -8,6 +8,7 @@ use App\Comment;
 use App\PostVote;
 use Auth;
 use Session;
+use DB;
 
 class PostController extends Controller
 {
@@ -76,7 +77,11 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::with('user')->where('id', $id)->first();
-        $comments = Comment::with('user')->where('post_id', $id)->orderBy('id', 'desc')->get();
+        $comments = Comment::with('user', 'children')
+                           ->where('post_id', $id)
+                           ->orderBy('id', 'desc')
+                           ->get();
+        //return $comments;
         return view('posts.show', compact('post', 'comments'));
     }
 

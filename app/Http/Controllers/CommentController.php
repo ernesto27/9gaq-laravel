@@ -37,7 +37,6 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate request
         $this->validate($request, Comment::$validationRules);
 
         // Save on DB
@@ -45,7 +44,8 @@ class CommentController extends Controller
             'body' => $request->input('comment'),
             'active' => 1,
             'user_id' => Auth::id(),
-            'post_id' => $request->input('post_id')
+            'post_id' => $request->input('post_id'),
+            'parent_id' => $request->input('parent_id')
         ]);
 
         if($comment){
