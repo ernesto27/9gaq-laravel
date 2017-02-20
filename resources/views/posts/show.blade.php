@@ -11,22 +11,7 @@
 		
 
 		<div class="column is-three-quarters">
-	        <article class="media">
-			  <div class="media-content">
-			    <div class="content">
-			      <p>
-			        <strong>{{ $post->user->username }}</strong> <small>{{ $post->created_at->diffForHumans() }}</small>
-			        <br>
-			        <figure class="image is-480x480">
-					  <img src="/images/app/{{ $post->image_url }}">
-					</figure>
-			      </p>
-			      <small><a>Like {{ $post->votes }}</a> · <a>Reply</a> · 3 hrs</small>
-			    </div>
-			    
-			  </div>
-			</article>
-
+	        @include('elements.post_item')
 			<hr>
 			<div class="comments">
 				<h1>Comments</h1>
