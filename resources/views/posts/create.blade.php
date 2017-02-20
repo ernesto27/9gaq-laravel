@@ -26,6 +26,17 @@
 				  <input class="input" type="text" name="title">
 				</p>
 
+				<label class="label">Select category</label>
+				<p class="control">
+					<span class="select">
+					  <select name="category">
+					  	@foreach($categories as $category)
+					  		<option value="{{ $category->id }}">{{ $category->name }}</option>
+					  	@endforeach
+					  </select>
+				  	</span>
+				</p>
+
 	  			<label class="label">Upload file</label>
 				<p class="control">
 				  <input class="input" type="file" name="file">

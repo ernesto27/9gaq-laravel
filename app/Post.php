@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     
-	protected $fillable = ['title', 'image_url', 'user_id'];
+	protected $fillable = ['title', 'image_url', 'user_id', 'category_id'];
 
     public static $validationRules = [
         'title' => 'required',
+        'category' => 'required',
         'file' => 'required|mimes:jpg,jpeg,png,gif'
     ];
 

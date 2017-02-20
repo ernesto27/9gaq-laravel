@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
 use App\PostVote;
+use App\Category;
 use Auth;
 use Session;
 use DB;
@@ -42,7 +43,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -61,7 +63,8 @@ class PostController extends Controller
             $post = Post::create([
                 'title' => $request->input('title'),
                 'image_url' => $store,
-                'user_id' => Auth::id()
+                'user_id' => Auth::id(),
+                'category_id' => $request->input('category')
             ]);
             Session::flash('success', true);
             return redirect("posts/{$post->id}");
