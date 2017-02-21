@@ -5,8 +5,16 @@
       <a class="nav-item" href="/posts">
         <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
       </a>
-      <a href="posts?order=latest" class="nav-item is-tab is-hidden-mobile is-active">Lastest</a>
-      <a href="posts?order=votes" class="nav-item is-tab is-hidden-mobile">More votes</a>
+      <a href="posts?order=latest" class="nav-item is-tab is-hidden-mobile @if($request->get('order') == 'latest') is-active @endif">Lastest</a>
+      <a href="posts?order=votes" class="nav-item is-tab is-hidden-mobile @if($request->get('order') == 'votes') is-active @endif">More votes</a>
+      <a href="#" onClick="return false;" class="nav-item is-tab is-hidden-mobile @if($request->get('category')) is-active @endif">
+        <select name="category" class="select-category">
+            @foreach($categories as $category)
+              <option value="{{ $category->id }}" @if($request->get('category') == $category->id) selected @endif>{{ $category->name }}</option>
+            @endforeach
+        </select>
+      </a>
+
 
     </div>
     <span class="nav-toggle">

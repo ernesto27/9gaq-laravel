@@ -16,6 +16,11 @@ class PostController extends Controller
 
     private $count;
 
+    public function __construct()
+    {
+        $this->count = 10;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,16 +29,11 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $order = $request->get('order');
-
+        $category = $request->get('category');
         $posts = Post::with('user');
-        if($order == 'latest' || $order == null){
-            $posts->byId();
-        }elseif($order == 'votes'){
-            $posts->byVotes();
-        }
-        
-        $posts = $posts->paginate($this->count);
-        return view('posts.index', compact('posts', 'order'));
+        $postsFactory = $this->filter($posts, $order, $category);
+        $posts = $postsFactory->paginate($this->count);
+        return view('posts.index', compact('posts', 'order', 'category'));
     }
 
     /**
@@ -43,8 +43,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('posts.create', compact('categories'));
+        return view('posts.create');
     }
 
     /**
@@ -144,7 +143,20 @@ class PostController extends Controller
             $post->save();
         }
         return back();
+    }
 
+    private function filter($postsFactory, $order, $category)
+    {
+        if($category){
+            $postsFactory->where('category_id', $category);
+        }
+        if($order == 'latest' || $order == null){
+            $postsFactory->byId();
+        }elseif($order == 'votes'){
+            $postsFactory->byVotes();
+        }
+
+        return $postsFactory;
     }
 }
 

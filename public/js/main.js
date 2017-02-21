@@ -4,12 +4,12 @@ $(function(){
 
 	App.Comments = {
 		init: function(){
-			//alert('init comments app');
 			this.events();
 		},
 
 		events: function(){
-			$('.reply-comment').on('click', this.showFormReplyComment);			
+			$('.reply-comment').on('click', this.showFormReplyComment);
+			$('.select-category').on('change', this.filterPostsByCategory);				
 		},
 
 		showFormReplyComment: function(){
@@ -18,7 +18,11 @@ $(function(){
 			var commentID = that.data('commentid');
 			formClone.find('[name="parent_id"]').val(commentID);
 			that.closest('.wrapper-comment').after(formClone);
-		
+		},
+
+		filterPostsByCategory: function(){
+			var categoryID = this.value;
+			window.location = '/posts?category=' + categoryID;
 		}
 	}
 

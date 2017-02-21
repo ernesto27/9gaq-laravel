@@ -25,7 +25,7 @@
 
 	<div>
 		
-		{{ $posts->appends(['order' => $order])->links() }}
+		{{ $posts->appends(['order' => $order, 'category' => $category])->links() }}
 	</div>
 
 	<hr>
