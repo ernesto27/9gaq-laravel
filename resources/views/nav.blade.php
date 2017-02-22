@@ -26,8 +26,8 @@
       
       @if(Auth::check())
         <a class="nav-item is-tab" href="/posts/create">
-          <figure class="image is-16x16" style="margin-right: 8px;">
-            <img src="http://bulma.io/images/jgthms.png">
+          <figure class="image is-24x24" style="margin-right: 8px;">
+            <img src={{ Storage::disk('s3')->url("users/avatars/".Auth::user()->id.".jpg") }}>
           </figure>
           Upload
         </a>

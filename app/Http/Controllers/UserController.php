@@ -8,6 +8,7 @@ use App\User;
 use Session;
 use Auth;
 use Storage;
+use Image;
 
 class UserController extends Controller
 {
@@ -94,8 +95,11 @@ class UserController extends Controller
    
         $this->validate($request, User::$validationRulesProfile);
 
-        $file = $request->file('file');
-        if($upload = Storage::disk('s3')->put("users/avatars/".Auth::user()->id.".jpg", file_get_contents($file))){
+        // Make thumb of the avatar
+        $resource = $this->getThumbResource($request);
+
+        // Save on S3 aws
+        if($upload = Storage::disk('s3')->put("users/avatars/".Auth::user()->id.".jpg", $resource)){
             $message = "El avatar se guardo correctamente";
         }else{
             $message = "Ocurrio un error , intentalo mas tarde...";
@@ -139,6 +143,14 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect('posts');
+    }
+
+
+    private function getThumbResource($request)
+    {
+        $img = Image::make($request->file('file')->getRealPath())->resize(120, 120);
+        $resource = $img->stream()->detach();
+        return $resource;
     }
 
 }
