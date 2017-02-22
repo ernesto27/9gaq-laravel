@@ -5,7 +5,7 @@
       <a class="nav-item" href="/posts">
         <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
       </a>
-      <a href="posts?order=latest" class="nav-item is-tab is-hidden-mobile @if($request->get('order') == 'latest') is-active @endif">Lastest</a>
+      <a href="posts?order=latest" class="nav-item is-tab is-hidden-mobile @if($request->get('order') == 'latest') is-active @endif">Latest</a>
       <a href="posts?order=votes" class="nav-item is-tab is-hidden-mobile @if($request->get('order') == 'votes') is-active @endif">More votes</a>
       <a href="#" onClick="return false;" class="nav-item is-tab is-hidden-mobile @if($request->get('category')) is-active @endif">
         <select name="category" class="select-category">
@@ -31,9 +31,10 @@
           </figure>
           Upload
         </a>
+        <a class="nav-item is-tab" href="/users/{{ Auth::user()->id }}/edit">Profile</a>
         <a class="nav-item is-tab" href="/users/logout">Log out</a>
       @else
-        <a class="nav-item is-tab" href="/users/register">Register</a>
+        <a class="nav-item is-tab" href="/users/create">Register</a>
         <a class="nav-item is-tab" href="/users/login">Login</a>
         
       @endif

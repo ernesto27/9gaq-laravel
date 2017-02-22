@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use App\User;
 use Session;
 use Auth;
+use Storage;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('create', 'store', 'loginShow', 'loginCreate');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,8 +57,6 @@ class UserController extends Controller
         
         Session::flash('message', "El registro se realizo correctamente");
         return redirect('/posts');
-
-        return $user;
     }
 
     /**
@@ -62,7 +67,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        
     }
 
     /**
@@ -71,9 +77,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        //
+        return view('users.show');
     }
 
     /**
@@ -85,7 +91,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+   
+        $this->validate($request, User::$validationRulesProfile);
+
+        $file = $request->file('file');
+        if($upload = Storage::disk('s3')->put("users/avatars/".Auth::user()->id.".jpg", file_get_contents($file))){
+            $message = "El avatar se guardo correctamente";
+        }else{
+            $message = "Ocurrio un error , intentalo mas tarde...";
+        }
+
+        Session::flash('message', $message);
+        return redirect("/users/". Auth::user()->id . '/edit' );
     }
 
     /**

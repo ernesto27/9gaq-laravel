@@ -5,15 +5,9 @@
 	
 		<div class="column is-three-quarters">
 	  		<p>REGISTRO</p>
-	  		@if (count($errors) > 0)
-			    <div class="notification is-danger">
-			        <ul>
-			            @foreach ($errors->all() as $error)
-			                <li>{{ $error }}</li>
-			            @endforeach
-			        </ul>
-			    </div>
-			@endif
+	  		
+	  		@include('elements.errors')
+
 	  		<form method="post" action="/users">
 	  			{{ csrf_field() }}
 	  			<label class="label">Username</label>

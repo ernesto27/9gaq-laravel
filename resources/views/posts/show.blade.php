@@ -18,16 +18,7 @@
 
 				<div class="add-comment">
 
-					@if (count($errors) > 0)
-					    <div class="notification is-danger">
-					        <ul>
-					        	<li>Error</li>
-					            @foreach ($errors->all() as $error)
-					                <li>{{ $error }}</li>
-					            @endforeach
-					        </ul>
-					    </div>
-					@endif
+					@include('elements.errors')
 
 					@if(session('success-comment'))
 						<div class="notification is-success">

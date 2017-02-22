@@ -33,4 +33,9 @@ class User extends Authenticatable
         'email' => 'required|email|unique:users,email',
         'password' => 'required'
     ];
+
+    public static $validationRulesProfile = [
+        'file' => 'required|mimes:jpg,jpeg,png,gif'
+    ];
+
 }

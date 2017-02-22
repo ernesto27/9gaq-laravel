@@ -18,7 +18,7 @@ class ExampleTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/posts')
-                    ->assertSee('Home');
+                    ->assertSee('Latest');
         });
     }
 
@@ -31,7 +31,7 @@ class ExampleTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/posts/1')
-                    ->assertSee('Home');
+                    ->assertSee('Latest');
         });
     }
 
@@ -117,6 +117,28 @@ class ExampleTest extends DuskTestCase
                     ->visit('/posts/1')
                     ->click('.btn-comment')
                     ->assertSee('Error');
+        });
+    }
+
+
+    public function testErrorUpdateProfileImage()
+    {
+        $this->browse(function(Browser $browser){
+            $browser->loginAs(User::find(1))
+                    ->visit('/users/1/edit')
+                    ->click('.btn-update')
+                    ->assertSee('Error');
+        });
+    }
+
+    public function testSuccessUpdateProfileImage()
+    {
+        $this->browse(function(Browser $browser){
+            $browser->loginAs(User::find(1))
+                    ->visit('/users/1/edit')
+                    ->attach('file', __DIR__.'/images/image.jpg')
+                    ->click('.btn-update')
+                    ->assertSee('El avatar se guardo correctamente');
         });
     }
 
