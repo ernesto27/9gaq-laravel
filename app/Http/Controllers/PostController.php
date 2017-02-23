@@ -10,6 +10,8 @@ use App\Category;
 use Auth;
 use Session;
 use DB;
+use Storage;
+use Image;
 
 class PostController extends Controller
 {
@@ -57,11 +59,19 @@ class PostController extends Controller
         // Validate request data
         $this->validate($request, Post::$validationRules);
 
-        $store = $request->file->store('public/images');
-        if($store){
+        $file = $request->file('file');
+        $pathAvatar = "posts/user-".Auth::user()->id;
+        $uploadPath = Storage::disk('s3')->put($pathAvatar, $file);
+        if($uploadPath){
+            $message = "El avatar se guardo correctamente";
+        }else{
+            $message = "Ocurrio un error , intentalo mas tarde...";
+        }        
+
+        if($uploadPath){
             $post = Post::create([
                 'title' => $request->input('title'),
-                'image_url' => $store,
+                'image_url' => $uploadPath,
                 'user_id' => Auth::id(),
                 'category_id' => $request->input('category')
             ]);

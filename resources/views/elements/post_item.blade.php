@@ -7,7 +7,7 @@
         <h1 class="title">{{ $post->title }}</h1>
         <figure class="image is-480x480">
           <a href="/posts/{{ $post->id }}">
-		  	<img src="/images/app/{{ $post->image_url }}">
+		  	<img src={{ Storage::disk('s3')->url("{$post->image_url}") }}>
 		  </a>
 		</figure>
       </p>
