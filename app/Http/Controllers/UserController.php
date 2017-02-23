@@ -99,8 +99,10 @@ class UserController extends Controller
         $resource = $this->getThumbResource($request);
 
         // Save on S3 aws
-        if($upload = Storage::disk('s3')->put("users/avatars/".Auth::user()->id.".jpg", $resource)){
+        $avatarPath = "users/avatars/".Auth::user()->id.".jpg";
+        if($upload = Storage::disk('s3')->put("users/avatars/".Auth::user($avatarPath)->id.".jpg", $resource)){
             $message = "El avatar se guardo correctamente";
+            $this->updateAvatar($avatarPath);
         }else{
             $message = "Ocurrio un error , intentalo mas tarde...";
         }
@@ -152,5 +154,14 @@ class UserController extends Controller
         $resource = $img->stream()->detach();
         return $resource;
     }
+
+
+    private function updateAvatar($avatarPath)
+    {
+        $user = User::find(Auth::user()->id);
+        $user->avatar = $avatarPath;
+        $user->save();
+    }
+
 
 }

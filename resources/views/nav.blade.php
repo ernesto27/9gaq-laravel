@@ -27,7 +27,13 @@
       @if(Auth::check())
         <a class="nav-item is-tab" href="/posts/create">
           <figure class="image is-24x24" style="margin-right: 8px;">
-            <img src={{ Storage::disk('s3')->url("users/avatars/".Auth::user()->id.".jpg") }}>
+            @if(Auth::user()->avatar)
+              <?php $avatarUser = Auth::user()->id.".jpg"; ?>
+            @else
+              <?php $avatarUser = "default.png" ?>
+            @endif
+            <img src={{ Storage::disk('s3')->url("users/avatars/". $avatarUser ) }}>
+           
           </figure>
           Upload
         </a>
